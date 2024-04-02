@@ -1,0 +1,46 @@
+<?php
+//input: {"UID01":"SSSSXXXX"}
+
+//output:
+// {"state" : true, "data" : "會員資料", "message": "驗證成功!"}
+// {"state" : false, "message" : "驗證失敗，無法登入!"}
+// {"state" : false, "message" : "傳遞參數格式錯誤!"}
+// {"state" : false, "message" : "未傳遞任何參數!"}
+
+
+$data = file_get_contents("php://input", "r");
+if ($data != "") {
+    $mydata = array();
+    $mydata = json_decode($data, true);
+    if (isset($mydata["UID01"]) && $mydata["UID01"] != "") {
+        $uid = $mydata["UID01"];
+
+        $servername = "localhost";
+        $username = "owner01";
+        $password = "123456";
+        $dbname = "testdb11";
+
+        $conn = mysqli_connect($servername, $username, $password, $dbname);
+        if (!$conn) {
+            die("連線失敗" . mysqli_connect_error());
+        }
+
+        $sql = "SELECT Username, Power, Email, UID01 FROM member01 WHERE UID01 = '$uid'";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) == 1) {
+            $mydata = array();
+            while($row = mysqli_fetch_assoc($result)){
+                $mydata[] = $row;
+            }
+            echo '{"state" : true, "data": '.json_encode($mydata).', "message" : "驗證成功!"}';
+        } else {
+            echo '{"state" : false, "message" : "驗證失敗，無法登入!"}';
+        }
+
+        mysqli_close($conn);
+    } else {
+        echo '{"state" : false, "message" : "傳遞參數格式錯誤!"}';
+    }
+} else {
+    echo '{"state" : false, "message" : "未傳遞任何參數!"}';
+}

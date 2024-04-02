@@ -1,0 +1,146 @@
+body {
+    background-image: url(/IMG/BG101.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.wrapper {
+    width: 1024px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.banner nav {
+    /* background-color: rgb(61, 147, 233); */
+    background-color: var(--CelestialGreen02);
+    text-align: center;
+}
+
+.banner nav ul {
+    display: inline-block;
+}
+
+.banner ul li {
+    list-style-type: none;
+    float: left;
+}
+
+.banner ul li a {
+    display: block;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* background-color: #bd0e0e; */
+    margin-right: 5px;
+    text-decoration: none;
+    color: var(--CelestialGreen01);    
+}
+
+.banner ul li a:hover {
+    /* background-color: rgba(81, 150, 229, 0.919); */
+    background-color: var(--CelestialGreen03);
+}
+
+.sideBar{
+    background-color: var(--CelestialGreen02);
+    width: 140px;
+    height: 75vh;
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+.sideBar nav ul{
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.sideBar nav ul li{
+    list-style-type: none;
+}
+.sideBar nav ul li a{
+    background-color: var(--CelestialGreen02);
+    display: block;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    margin-top: 1px;
+    margin-bottom: 1px;
+    line-height: 40px;
+    text-decoration: none;
+    color: var(--CelestialGreen01);    
+}
+.sideBar nav ul li a:hover{
+    background-color: var(--CelestialGreen03);
+    color: var(--CelestialGreen01);
+}
+
+.content_in {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    padding-left: 20px;
+    padding-right: 20px;
+    /* background-color: #cfcaca; */
+    margin-top: 3px;
+}
+.content_in h1 {
+    color: var(--mycolor03);
+    text-align: center;
+}
+.content_in p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    color: var(--CelestialGreen01);
+}
+.content_in a {
+    display: block;
+    width: 120px;
+    height: 30px;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    text-align: center;    
+    color: var(--CelestialGreen01);        
+    background-color: var(--CelestialGreen03);
+    line-height: 30px; /*與高度相同即可垂直置中*/
+}
+.content_in a:hover {
+    color: rgb(18, 18, 17);
+    background-color: var(--CelestialGreen01);
+}
+
+.footer {            
+    background-color: var(--CelestialGreen02);
+    text-align: center;            
+}
+.footer p {
+    font-style: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    color: var(--CelestialGreen01);
+}
+
+@media screen and (max-width: 1024px) {
+    .wrapper {
+        width: 100%;
+    }
+    .sideBar{
+        width: 100%;
+        height: auto;
+        text-align: center;   
+    }
+    .sideBar ul{
+        display: inline-block;
+    }
+    .sideBar ul li{
+        float: left;
+        margin-right: 5px;
+    }
+}

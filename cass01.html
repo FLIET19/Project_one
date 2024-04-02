@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Life will change</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/myall.css">
+    <style>
+        /* 將網站內容隱藏 */
+        #content {
+            display: none;
+        }
+
+        /* 設定影片區域 */
+        #myVideo {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 10;
+        }
+
+        /* 讓影片填滿整個區域 */
+        #myVideo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .section {
+            width: 100%;
+            height: 100vh;
+            position: relative;
+            /* display: flex; */
+            /* justify-content: center;
+            align-items: center; */
+        }
+
+        .section video {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            object-fit: cover;
+        }
+
+        .navbar {
+            background-color: transparent;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        .block_title {
+            position: absolute;
+            left: 0%;
+            bottom: 0%;
+            background-image: url(/IMG/P5/icon/title01.png);
+            width: 300px;
+            height: 300px;
+            background-size: cover;
+        }
+
+        .google_icon {
+            position: absolute;
+            right: 50px;
+            bottom: 150px;
+            background-image: url(/IMG/P5/btn/goo.png);
+            width: 250px;
+            height: 100px;
+            background-size: cover;
+        }
+
+        .apple_icon {
+            position: absolute;
+            right: 50px;
+            bottom: 50px;
+            background-image: url(/IMG/P5/btn/App01.png);
+            width: 250px;
+            height: 100px;
+            background-size: cover;
+        }
+        #section02{
+            background-color: #000000;
+        }
+
+        .redZone{
+            position: absolute;
+            margin: 0;          
+            background-image: url(/IMG/path/1x/mubar_left.png);
+            width: 350px;
+            height: 20vh;
+            background-size: cover;
+            background-position: center center;
+            z-index: 5;
+        }
+
+        .carousel-caption {
+            background-color: var(--bgca02);
+        }
+
+
+        /* music bar */
+        #music_bar {
+            background-color: var(--RosyReds04);
+        }
+
+        .img14 {
+            background-image: url(/IMG/path/1x/mubar_main.png);
+            height: 20vh;
+            background-position: 0 0;
+            background-size: cover;
+        }
+
+        .mbar {
+            position: relative;
+            text-align: center;
+            color: var(--ComfyNeutral01);
+            height: 20vh;
+            background-color: var(--RosyReds04);
+        }
+
+        .playing {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: auto;
+            transform: translateX(-50%);
+        }
+
+        .playing:after {
+            content: "播放中";
+            display: block;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .now.playing .bar {
+            display: inline-block;
+            position: relative;
+            margin-right: 1px;
+            width: 10px;
+            height: 1px;
+            overflow: hidden;
+            background: linear-gradient(to bottom, var(--RosyReds03), var(--RosyReds04));
+            color: transparent;
+            animation-name: pulse;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+        }
+
+        .paused.playing .bar {
+            animation-iteration-count: 1;
+        }
+
+        .paused.playing:after {
+            content: "安靜模式"
+        }
+
+        .n1 {
+            animation-delay: 0.5s;
+        }
+
+        .n2 {
+            animation-delay: 0.2s;
+        }
+
+        .n3 {
+            animation-delay: 1.2s;
+        }
+
+        .n4 {
+            animation-delay: 0.9s;
+        }
+
+        .n5 {
+            animation-delay: 2.3s;
+        }
+
+        .n6 {
+            animation-delay: 1.3s;
+        }
+
+        .n7 {
+            animation-delay: 3.1s;
+        }
+
+        .n8 {
+            animation-delay: 1.9s;
+        }
+
+        .b01 {
+            margin-top: 1rem;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--ComfyNeutral01);
+        }
+
+        @keyframes pulse {
+            0% {
+                height: 1px;
+                margin-top: 0;
+            }
+
+            10% {
+                height: 40px;
+                margin-top: -40px;
+            }
+
+            50% {
+                height: 20px;
+                margin-top: -20px;
+            }
+
+            60% {
+                height: 30px;
+                margin-top: -30px;
+            }
+
+            80% {
+                height: 60px;
+                margin-top: -60px;
+            }
+
+            100% {
+                height: 1px;
+                margin-top: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 影片區域 -->
+    <div id="videoContainer">
+        <video id="myVideo" autoplay muted>
+            <source src="/IMG/P5/OP02.mp4" type="video/mp4">
+        </video>
+    </div>
+
+    <div id="content">
+        <!-- section01 -->
+        <section id="section01" class="section">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg">
+                    <div class="container">
+                        <a class="navbar-brand icon01" href="#"></a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a class="nav-link" aria-current="page" href="#">test01</a>
+                                </li>
+                               
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-danger" href="#" role="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        會員相關
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a class="dropdown-item disabled" href="pathTest.html" target="_blank"
+                                                id="member_btn01">會員功能</a>
+                                        </li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <div>
+                                <span class="text-warning h3" id="user_message"></span>
+                                <button class="btn btn-outline-danger" data-bs-toggle="modal"
+                                    data-bs-target="#loginModal" id="logBtn">登入</button>
+                                <button class="btn btn-danger wow animate__rotateOut" data-wow-duration="2s"
+                                    data-wow-delay="0s" data-wow-iteration="infinite" data-bs-toggle="modal"
+                                    data-bs-target="#registerModal" id="regBtn">註冊</button>
+                                <button class="btn btn-outline-danger d-none" data-bs-toggle="modal"
+                                    data-bs-target="#logoutModal" id="logoutBtn">登出</button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                <video autoplay muted loop>
+                    <source src="/IMG/P5/rainy-night.mp4" type="video/mp4">
+                </video>
+                <div class="block_title wow animate__fadeIn" data-wow-duration="2s" data-wow-delay="0s"
+                    data-wow-iteration="1"></div>
+                <div class="google_icon wow animate__fadeIn" data-wow-duration="3s" data-wow-delay="0s"
+                    data-wow-iteration="1"></div>
+                <div class="apple_icon wow animate__fadeIn" data-wow-duration="4s" data-wow-delay="0s"
+                    data-wow-iteration="1"></div>
+            </div>
+        </section>
+        <!-- s01登入 Modal -->
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content text-bg-dark">
+                    <div class="modal-header text-danger">
+                        <h1 class="modal-title fs-5 fw-900" id="loginModal">會員登入</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="login_user" class="form-label fw-700">帳號</label>
+                            <input type="text" class="form-control" name="login_user" id="login_user">
+                        </div>
+                        <div class="mb-3">
+                            <label for="login_pwd" class="form-label fw-700">密碼</label>
+                            <input type="password" class="form-control" name="login_pwd" id="login_pwd">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="login_btn">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- s01註冊 Modal -->
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header text-bg-dark">
+                        <h1 class="modal-title fs-5 fw-900 text-danger" id="exampleModalLabel">會員註冊</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body timeline-section02">
+                        <div class="row">
+                            <div class="col-6 text-bg-dark">
+                                <h2>會員守則</h2>
+                                <p>一步只好展開形勢，本次無論，數字我又上。</p>
+                                <p>一步只好展開形勢，本次無論，數字我又上。一步只好展開形勢，本次無論，數字我又上。</p>
+                                <p>一步只好展開形勢，本次無論，數字我又上。</p>
+                                <p>一步只好展開形勢，本次無論，數字我又上。一步只好展開形勢，本次無論，數字我又上。</p>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="chk01" name="chk01">
+                                    <label class="form-check-label" for="chk01">
+                                        同意
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="user" class="form-label text-danger">帳號</label>
+                                    <input type="text" id="user" name="user" class="form-control"
+                                        placeholder="帳號字數: 3~10">
+                                    <div class="valid-feedback" id="okFeed"></div>
+                                    <div class="invalid-feedback" id="notFeed"></div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pwd" class="form-label text-danger">密碼</label>
+                                    <input type="password" id="pwd" name="pwd" class="form-control"
+                                        placeholder="密碼字數: 6~12">
+                                    <div class="valid-feedback">字數符合</div>
+                                    <div class="invalid-feedback">字數不符</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="pwd_c" class="form-label text-danger">請再次輸入密碼</label>
+                                    <input type="password" id="pwd_c" name="pwd_c" class="form-control"
+                                        placeholder="確認密碼!!">
+                                    <div class="valid-feedback">密碼一致</div>
+                                    <div class="invalid-feedback">密碼不一致</div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label text-danger">Email</label>
+                                    <input type="email" id="email" name="email" class="form-control"
+                                        placeholder="字數: 11~32">
+                                    <div class="valid-feedback">字數符合</div>
+                                    <div class="invalid-feedback">字數不符</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                        <button type="button" class="btn btn-primary" id="reg_btn">確認</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- section02 -->
+        <section id="section02" class="section">
+            <div class="redZone"></div>
+            <div class="container" id="music_bar">
+                <div class="row d-flex flex-row">
+                    <div class="col-md-8 img14"></div>
+                    <div class="col-md-4 mbar">
+                        <div class="now playing" id="music">
+                            <span class="bar n1">A</span>
+                            <span class="bar n2">B</span>
+                            <span class="bar n3">C</span>
+                            <span class="bar n4">D</span>
+                            <span class="bar n5">E</span>
+                            <span class="bar n6">F</span>
+                            <span class="bar n7">G</span>
+                            <span class="bar n8">H</span>
+                        </div>
+                        <button onclick="toggle(this)" class="b01">暫停播放</button>
+                    </div>
+                </div>
+            </div>
+            <div class="blackZone"></div>
+            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active bg-cover" style="background-image: url(/IMG/P5/P5/main01.png); height: 80vh;">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>First slide label</h5>
+                      <p>Some representative placeholder content for the first slide.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item active bg-cover" style="background-image: url(/IMG/P5/bgi/pxfuel.jpg); height: 80vh;">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>Second slide label</h5>
+                      <p>Some representative placeholder content for the second slide.</p>
+                    </div>
+                  </div>
+                  <div class="carousel-item active bg-cover" style="background-image: url(/IMG//P5/P5/car01.png); height: 80vh;">
+                    <div class="carousel-caption d-none d-md-block">
+                      <h5>Third slide label</h5>
+                      <p>Some representative placeholder content for the third slide.</p>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+        </section>
+
+        <!-- section03 -->
+        <section id="section03" class="section">
+            <section id="s03" class="s03_img" style="position: relative;">
+                <div class="row">
+                    <div class="col-md-5 bg-cover"
+                        style="background-image: url(/IMG/sea01.png); position: absolute; top: 0; bottom: 0;">
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row justify-content-end">
+                        <div class="col-md-7 mt-5 s07_text">
+                            <h2 class="fw-800">A New Title</h2>
+                            <p>幾乎望着畢業高校看過，另外招標好友介紹則是學歷性別爭取沉默大大，豐富最高時間，年輕人讀者並沒有有關通用明天主要師傅新聞證券流程，期間辛苦維修已經明年必要些什麼兩個更新一定女士，太多人數而言身上發貼簡介一遍不去相互微微，女朋友望着新鮮，行情專題直播主，回頭。
+                            </p>
+                            <button class="btn btn-primary wow animate__flipInX" data-wow-duration="4s" data-wow-delay="0s"
+                                data-wow-iteration="infinite">More</button>
+                            <div class="row mt-5">
+                                <div class="col-md-6">
+                                    <h3>S1 title</h3>
+                                    <p>下一頁英文石油同事作者還可以股票上下生活，複雜印刷讓你複雜依舊股份有限公司拿出陽光別的基隆，委員會計算機至今看過創造，可以說三星首頁新型相關利用隨便一遍我的心。</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <h3>S2 title</h3>
+                                    <p>下一頁英文石油同事作者還可以股票上下生活，複雜印刷讓你複雜依舊股份有限公司拿出陽光別的基隆，委員會計算機至今看過創造，可以說三星首頁新型相關利用隨便一遍我的心。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script>
+
+        var video = document.getElementById("myVideo");
+        var content = document.getElementById("content");
+
+        video.onended = function () {
+            // 影片播放完畢後顯示網站內容
+            video.remove(); // 移除影片
+            content.style.display = "block"; // 顯示網站內容
+        };
+
+        // DOMContentLoaded: 當網頁的HTML文件已經被完全載入和解析時觸發(不包含外部資源ex:圖片)
+        document.addEventListener("DOMContentLoaded", function () {
+            const sections = document.querySelectorAll(".section");
+            // currentSectionIndex: 初始化一個變數來跟踪當前部分的索引，從0開始，表示第一部分
+            let currentSectionIndex = 0;
+            // isScrolling: 初始化一個變數來追蹤頁面是否正在滾動
+            let isScrolling = false;
+
+            function scrollToSection(index) {
+                const targetSection = sections[index];
+                window.scrollTo({
+                    top: targetSection.offsetTop,
+                    behavior: "smooth"
+                });
+            }
+
+            function handleScroll(event) {
+                if (!isScrolling) {
+                    isScrolling = true;
+                    if (event.deltaY > 0 && currentSectionIndex < sections.length - 1) {
+                        currentSectionIndex++;
+                    } else if (event.deltaY < 0 && currentSectionIndex > 0) {
+                        currentSectionIndex--;
+                    }
+
+                    scrollToSection(currentSectionIndex);
+
+                    // 防止過快滾動造成多次滾動
+                    setTimeout(function () { isScrolling = false; }, 400); // 調整時間間隔(毫秒)
+                }
+            }
+            // 向文檔添加"wheel"事件監聽器，當用戶滾動時觸發handleScroll函數
+            document.addEventListener("wheel", handleScroll);
+        });
+
+        new WOW().init();
+
+        // music bar
+        function toggle(button01) {
+            var player = document.getElementById("music");
+            player.classList.toggle("paused");
+            if (button01.innerHTML == "播放") {
+                button01.innerHTML = "暫停";
+            } else {
+                button01.innerHTML = "播放";
+            }
+        }
+
+        // 會員註冊
+        var flag_user = false;
+        var flag_pwd = false;
+        var flag_pwd_c = false;
+        var flag_email = false;
+        var flag_chk01 = false;
+
+        $(function () {
+            // 判斷是否登入
+            if (getCookie("UID01") != "") {
+                // UID01存在，傳至後端判斷是否合法
+                var dataJSON = {};
+                dataJSON["UID01"] = getCookie("UID01");
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.10.71/Cass01/api/member01-checkUID_api.php",
+                    data: JSON.stringify(dataJSON),
+                    dataType: "json",
+                    success: showdata_CheckUID,
+                    error: function () {
+                        alert("error-http://192.168.10.71/Cass01/api/member01-checkUID_api.php");
+                    }
+                });
+            }
+
+            // 即時監聽logoutBtn
+            $("#logoutBtn").click(function () {
+                setCookie("UID01", "", 7);
+                location.href = "http://192.168.10.71/Cass01/cass01.html";
+            });
+
+            //即時監聽#user
+            $("#user").bind("input propertychange", function () {
+                if ($(this).val().length > 2 && $(this).val().length < 11) {
+                    //符合規定，傳遞至後端檢查帳號是否重複
+                    var dataJSON = {};
+                    dataJSON["Username"] = $("#user").val();
+                    console.log(JSON.stringify(dataJSON));
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://192.168.10.71/Cass01/api/member01-check_api.php",
+                        data: JSON.stringify(dataJSON),
+                        dataType: "json",
+                        success: showdata_check_uni,
+                        error: function () {
+                            alert("error-http://192.168.10.71/Cass01/api/member01-check_api.php");
+                        }
+                    });
+                } else {
+                    //不符合規定
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    $("#notFeed").text("字數不符!");
+                    flag_user = false;
+                }
+            });
+
+            //即時監聽#pwd
+            $("#pwd").bind("input propertychange", function () {
+                // console.log($(this).val().length); is-invalid
+                if ($(this).val().length > 5 && $(this).val().length < 13) {
+                    //符合規定
+                    $(this).removeClass('is-invalid');
+                    $(this).addClass('is-valid');
+                    flag_pwd = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    flag_pwd = false;
+                }
+            });
+
+            //即時監聽 #pwd_c
+            $("#pwd_c").bind("input propertychange", function () {
+                if ($(this).val() == $("#pwd").val()) {
+                    //符合規定
+                    $(this).removeClass('is-invalid');
+                    $(this).addClass('is-valid');
+                    flag_pwd_c = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    flag_pwd_c = false;
+                }
+            });
+
+            //即時監聽 #email
+            $("#email").bind("input propertychange", function () {
+                // console.log($(this).val().length); is-invalid
+                if ($(this).val().length > 10 && $(this).val().length < 33) {
+                    //符合規定
+                    $(this).removeClass('is-invalid');
+                    $(this).addClass('is-valid');
+                    flag_email = true;
+                } else {
+                    //不符合規定
+                    $(this).removeClass('is-valid');
+                    $(this).addClass('is-invalid');
+                    flag_email = false;
+                }
+            });
+
+            //監聽 checkbox #chk01
+            $("#chk01").change(function () {
+                if ($(this).is(":checked")) {
+                    flag_chk01 = true;
+                } else {
+                    flag_chk01 = false;
+                }
+
+            });
+
+            // 登入確認
+            $("#login_btn").click(function () {
+                var dataJSON = {};
+                dataJSON["Username"] = $("#login_user").val();
+                dataJSON["PWD"] = $("#login_pwd").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "http://192.168.10.71/Cass01/api/member01-login_api.php",
+                    data: JSON.stringify(dataJSON),
+                    contentType: "application/json;charset=utf-8",
+                    dataType: "json",
+                    success: showdata_login,
+                    error: function () {
+                        alert("錯誤!_http://192.168.10.71/Cass01/api/member01-login_api.php");
+                    }
+                });
+            });
+
+            // 註冊確認
+            $("#reg_btn").click(function () {
+                if (flag_user && flag_pwd && flag_pwd_c && flag_email && flag_chk01) {
+                    // 轉為json格式
+                    var dataJSON = {};
+                    dataJSON["Username"] = $("#user").val();
+                    dataJSON["PWD"] = $("#pwd").val();
+                    dataJSON["Email"] = $("#email").val();
+                    console.log(JSON.stringify(dataJSON));
+                    // 傳至後端
+                    $.ajax({
+                        type: "POST",
+                        url: "http://192.168.10.71/Cass01/api/member01-Create_api.php",
+                        data: JSON.stringify(dataJSON),
+                        contentType: "application/json;charset=utf-8",
+                        dataType: "json",
+                        success: showdata,
+                        error: function () {
+                            alert("錯誤!_http://192.168.10.71/Cass01/api/member01-Create_api.php");
+                        }
+                    });
+                } else {
+                    alert("欄位有誤!");
+                }
+            });
+        });
+
+        function showdata_login(data) {
+            if (data.state) {
+                alert(data.message);
+                var uid01 = data.data[0].UID01;
+                setCookie("UID01", uid01, 7);
+                $('#loginModal').modal('hide');
+                $("#user_message").text(data.data[0].Username + "登入中!");
+
+                document.getElementById('logBtn').style.display = 'none';
+                document.getElementById('regBtn').style.display = 'none';
+                $("#logoutBtn").removeClass("d-none");
+
+                // 會員功能
+                $("#member_btn02").removeClass("disabled");
+                $("#member_btn03").removeClass("disabled");
+
+                // 權限區分
+                var power = data.data[0].Power;
+                if (power > 0 && power < 10) {
+                    $("#member_btn01").removeClass("disabled");
+                }
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showdata(data) {
+            if (data.state) {
+                alert(data.message);
+                location.reload();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showdata_check_uni(data) {
+            if (data.state) {
+                // 不用this因為在此會代表showdata_check_uni(data)
+                $("#user").removeClass('is-invalid');
+                $("#user").addClass('is-valid');
+                $("#okFeed").text("帳號可使用!");
+                flag_user = true;
+            } else {
+                $("#user").removeClass('is-valid');
+                $("#user").addClass('is-invalid');
+                $("#notFeed").text("帳號已存在!");
+                flag_user = false;
+            }
+        }
+
+        // UID驗證
+        function showdata_CheckUID(data) {
+            if (data.state) {
+                // 驗證成功
+
+                $("#user_message").text(data.data[0].Username + "登入中!");
+                $("#logBtn").addClass("d-none");
+                $("#regBtn").addClass("d-none");
+                $("#logoutBtn").removeClass("d-none");
+
+                $("#member_btn02").removeClass("disabled");
+                $("#member_btn03").removeClass("disabled");
+
+                // 權限區分
+                var power = data.data[0].Power;
+                if (power > 0 && power < 10) {
+                    $("#member_btn01").removeClass("disabled");
+                }
+            }
+        }
+
+        // cookie相關
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,162 @@
+@import url('https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=DotGothic16&family=IBM+Plex+Sans+JP:wght@100;200;300;400;500;600;700&family=Klee+One:wght@400;600&family=Noto+Sans+TC:wght@100;200;300;400;500;600;700;800;900&family=Rubik+Glitch&family=Yusei+Magic&family=Zen+Maru+Gothic:wght@300;400;500;700;900&display=swap');
+
+
+:root {
+    --mycolor01:#000000;
+    --mycolor02:#ffffff;
+    --mycolor03:#b32424;
+    --mycolor04:rgb(58, 102, 169);
+    --mycolor05:#25914b;
+    
+    --bgca01:rgba(20,20,20, .3);
+    --bgca02:rgba(58,102,169, .3);
+    --bgca03:rgba(232, 179, 23, 0.3);
+    --bgca04:rgba(222, 49, 18, 0.3);
+    --bgca05:rgb(255, 255, 255);
+    
+    --EmeraldGarden01:#9BCFB8;
+    --EmeraldGarden02:#7FB174;
+    --EmeraldGarden03:#689C97;
+    --EmeraldGarden04:#072A24;
+
+    --WesternWear01:#D5D2C1;
+    --WesternWear02:#BD8E62;
+    --WesternWear03:#A46843;    
+    --WesternWear04:#370d00;
+
+    --SubduedSucculent01:#D1DDDB;
+    --SubduedSucculent02:#85B8CB;
+    --SubduedSucculent03:#1D6A96;
+    --SubduedSucculent04:#283B42;
+
+    --ComfyNeutral01:#E1DCD9;
+    --ComfyNeutral02:#8F8681;
+    --ComfyNeutral03:#A67F78;
+    --ComfyNeutral04:#32435F;
+
+    --CelestialGreen01:#B2A59F;
+    --CelestialGreen02:#023459;
+    --CelestialGreen03:#1E646E;
+    --CelestialGreen04:#002C2F;
+
+    --RosyReds01:#FFC2C3;
+    --RosyReds02:#FE7773;
+    --RosyReds03:#E81E25;
+    --RosyReds04:#0E0301;
+
+}
+
+body {
+    font-family: 'Zen Maru Gothic', serif;
+}
+
+.fs02 {
+    font-family: 'Klee One';/* 400 600 */
+}
+.fsFAT {
+    font-family: 'Dela Gothic One';
+}
+
+.fsJP {
+    font-family: 'IBM Plex Sans JP';
+}
+.fsQ {
+    font-family: 'Yusei Magic';
+}
+.fs16b {
+    font-family: 'DotGothic16';
+}
+.fse01{
+    font-family: 'Rubik Glitch';
+}
+
+.fw-100{
+    font-weight: 100;
+}
+.fw-200{
+    font-weight: 200;
+}
+.fw-300{
+    font-weight: 300;
+}
+.fw-400{
+    font-weight: 400;
+}
+.fw-500{
+    font-weight: 500;
+}
+.fw-600{
+    font-weight: 600;
+}
+.fw-700{
+    font-weight: 700;
+}
+.fw-800{
+    font-weight: 800;
+}
+.fw-900{
+    font-weight: 900;
+}
+
+.mr-1{
+    margin-right: 1px;
+}
+.mr-2{
+    margin-right: 1px;
+}
+.mr-3{
+    margin-right: 1px;
+}
+.mr-4{
+    margin-right: 1px;
+}
+.mr-5{
+    margin-right: 1px;
+}
+
+.tcolor01{
+    color: var(--mycolor01);
+}
+.tcolor02{
+    color: var(--mycolor02);
+}
+.tcolor03{
+    color: var(--mycolor03);
+}
+
+.bg-cover{
+    background-position: center center;
+    background-size: cover;
+}
+
+
+
+.demo {
+    width: 80%;
+    padding: 20px;
+    margin: 20px;
+    border: 2px solid var(--WesternWear04);
+}
+
+.box160 {
+    height: 160px;
+    background-color: var(--ComfyNeutral01);
+    border: 2px solid var(--ComfyNeutral03);
+    margin-top: 15px;
+}
+.boxGY {
+    height: 150px;
+    background-color: var(--ComfyNeutral01);
+    border: 2px solid var(--ComfyNeutral03);    
+}
+.box {
+    height: 200px;
+    background-color: #000000;
+}
+.wrapper {
+    height: 1024px;    
+}
+.main {
+    width: 80%;
+    border: 2px solid var(--WesternWear04);
+}

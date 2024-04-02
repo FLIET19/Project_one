@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>圖表練習-opendata</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/myall.css">
+    <style>
+        .list-group {
+            height: 90vh;
+            overflow: scroll;
+        }
+
+        .card-body {
+            height: 90vh;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="row pt-5">
+            <div class="col-md-3">
+                <ul class="list-group" id="regionList">
+                    <li class="list-group-item">
+                        <div class="d-flex">
+                            <div class="h5 fw-900 me-auto">南投縣</div>
+                            <span class="badge text-bg-primary h3 fw-900">99</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-body">
+                        <canvas id="myChartAddr"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
+    <script>
+        var regionTitle = [];
+        var counter = [];
+        var regionData = [];
+        var chartAddr;
+        $(function () {
+            const ctxAddr = document.getElementById('myChartAddr');
+            const chartAddr = new Chart(ctxAddr, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [{
+                        label: '地區分布圖',
+                        data: [],
+                        borderWidth: 2,
+                        backgroundColor: ['#000000', '#EA0000', '#00BB00', '#2894FF'],
+                        color: '#666' // 文字顏色
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+
+            // axios串接資料
+            axios.get('../json/hotel_C_f.json')
+                .then(function (response) {
+                    // handle success
+                    console.log(response.data.XML_Head.Infos.Info);
+                    // 資料重構
+                    response.data.XML_Head.Infos.Info.forEach(function (item) {
+                        var getRegion = item.Region;
+                        if (getRegion == null) {
+                            getRegion = "未分類";
+                        }
+                        if (counter[getRegion] == undefined) {
+                            counter[getRegion] = regionData.length;
+                            regionData.push(new Array());
+                            regionTitle[counter[getRegion]] = getRegion;
+                        }
+                        regionData[counter[getRegion]].push(item);
+                    });
+
+                    console.log(regionTitle);
+                    console.log(counter);
+                    console.log(regionData);
+
+                    //左側縣市選單
+                    $("#regionList").empty();
+                    regionTitle.forEach(function (item, key) {
+                        var strHTML = '<li class="list-group-item" data-region="' + item + '"><div class="d-flex"><div class="h5 fw-900 me-auto">' + item + '</div><span class="badge text-bg-warning h3 fw-900">' + regionData[key].length + '</span></div></li>';
+                        $("#regionList").append(strHTML);
+                    });
+
+                    //左側縣市選單  監聽
+                    $("#regionList .list-group-item").bind("click", function () {
+                        console.log($(this).data("region"));
+
+                        //再次資料重構*******************************
+                        var getNewRegion = $(this).data("region");
+                        var townTitle = [];
+                        var townCounter = [];
+                        var townData = [];
+
+                        regionData[counter[getNewRegion]].forEach(function (item) {
+                            var getRegion = item.Town;
+                            if (townCounter[getRegion] == undefined) {
+                                townCounter[getRegion] = townData.length;
+                                townData.push(new Array());
+                                townTitle[townCounter[getRegion]] = getRegion;
+                            }
+                            townData[townCounter[getRegion]].push(item);
+                        });
+                        console.log(townTitle);
+                        console.log(townCounter);
+                        console.log(townData);
+
+                        //更新圖表數據
+                        chartAddr.data.labels = [];
+                        chartAddr.data.datasets[0].data = [];
+                        townTitle.forEach(function (item, key) {
+                            chartAddr.data.labels.push(item); //x軸
+                            chartAddr.data.datasets[0].data.push(townData[key].length); //y軸
+                        });
+                        chartAddr.data.datasets[0].label = getNewRegion + '各區旅館數量分析圖表';
+                        chartAddr.update();
+
+                        // 隨機生成背景顏色
+                        // var randomColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+                        // chartAddr.data.datasets[0].backgroundColor.push(randomColor);
+                        // });
+                        // chartAddr.update();
+                    })
+                })
+                .catch(function (error) {
+                    // handle error
+                    console.log(error);
+                })
+                .finally(function () {
+                    // always executed
+                });
+        });
+    </script>
+</body>
+
+</html>

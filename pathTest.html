@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.min.css">
+    <link rel="stylesheet" href="/css/all.min.css">
+    <link rel="stylesheet" href="/css/myall.css">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .bgcolor {
+            background-image: url(/IMG/P5/P3/bgi06.png);
+            margin: 0;
+            padding: 0;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        #block1:hover {
+            opacity: 0.2;
+        }
+
+        #block2:hover {
+            opacity: 0.2;
+        }
+
+        #block3:hover {
+            opacity: 0.2;
+        }
+
+        #block4:hover {
+            opacity: 0.2;
+        }
+
+        #block5:hover {
+            opacity: 0.2;
+        }
+
+        .rotate {
+            position: relative;
+            --deg: "0deg";
+
+            &:has(.block1:hover) .pointer {
+                --deg: -10deg;
+            }
+
+            &:has(.block2:hover) .pointer {
+                --deg: 60deg;
+            }
+
+            &:has(.block3:hover) .pointer {
+                --deg: 90deg;
+            }
+
+            &:has(.block4:hover) .pointer {
+                --deg: 100deg;
+            }
+
+            &:has(.block5:hover) .pointer {
+                --deg: 30deg;
+            }
+        }
+
+        .pin {
+            position: absolute;
+            bottom: 20px;
+            left: 50px;
+            background-image: url(/IMG/path/1x/資產\ 2.png);
+            height: 200px;
+            width: 200px;
+            background-repeat: no-repeat;
+            background-size: cover;
+            z-index: 10;
+            rotate: var(--deg);
+            transition: rotate 0.5s ease 0s;
+        }
+
+        @media screen and (max-width: 1200px) {
+            .rotate {
+                width: 100vw;
+                height: 100vh;
+                transform: rotate(-90deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="rotate">
+        <div class="bgcolor">
+            <svg width="100%" height="100%" viewBox="0 0 5442.52 3061.42" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(211, 111, 178);stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:rgb(56, 167, 204);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <a href="member01-front.html">
+                    <path id="block1" d="M0,3061.42 L0,0 L1540.81,0 L977.83,2554.47 L412.55,3060.61 L0, 3061.42 Z"
+                        fill="url(#grad1)" />
+                </a>
+                <defs>
+                    <linearGradient id="grad2" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(211, 111, 178);stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:rgb(56, 167, 204);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <a href="0314-map_v3.html">
+                    <path id="block2"
+                        d="M449.32,3060.61 L3884.64,0 L5442.52,0 L5442.52,435.01 L522.65, 3060.61 L449.32,3060.61 Z"
+                        fill="url(#grad2)" />
+                </a>
+                <defs>
+                    <linearGradient id="grad3" x1="100%" y1="0%" x2="0%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(211, 111, 178);stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:rgb(15, 184, 240);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <a href="0312chartjs-hotelC.html">
+                    <path id="block3" d="M564.21,3060.61 L3889.23,1318.21 L2786.26,3061.42 L564.21,3060.61 Z"
+                        fill="url(#grad3)" />
+                </a>
+                <defs>
+                    <linearGradient id="grad4" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(211, 111, 178);stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:rgb(15, 184, 240);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <a href="cass01.html">
+                    <path id="block4"
+                        d="M2809.23,3060.61 L4059.28,1233.19 L5442.52,509.36 L5442.52,3061.42 L2809.23,3060.61 Z"
+                        fill="url(#grad4)" />
+                </a>
+                <defs>
+                    <linearGradient id="grad5" x1="0%" y1="100%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:rgb(211, 111, 178);stop-opacity:0" />
+                        <stop offset="100%" style="stop-color:rgb(15, 184, 240);stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <a href="itemFront.html">
+                    <path id="block5" d="M1001.96,2529.19 L1660.3,0 L3742.17,0 L1001.96,2529.19 Z" fill="url(#grad5)" />
+                </a>
+            </svg>
+        </div>
+        <div class="pin"></div>
+    </div>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/wow.min.js"></script>
+    <script src="/js/jquery-3.7.1.min.js"></script>
+
+    <script>
+    </script>
+</body>
+
+</html>

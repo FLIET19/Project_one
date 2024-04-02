@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>會員資料一覽</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/myall.css">
+    <style>
+        .page-item.active .page-link {
+            color: red;
+        }
+
+        @media screen and (max-width: 768px) {
+            .table-rwd thead {
+                display: none;
+            }
+
+            .table-rwd tbody tr {
+                display: block;
+                border: 5px solid var(--CelestialGreen04);
+                margin-top: 10px;
+            }
+
+            .table-rwd tbody tr td {
+                display: block;
+                overflow: hidden;
+            }
+
+            .table-rwd tbody tr td::before {
+                content: attr(data-code)" : ";
+                color: var(--CelestialGreen04);
+                font-weight: 700;
+                display: block;
+                float: left;
+                width: 6em;
+                text-align: right;
+                padding-right: 2em;
+            }
+
+            .table-rwd tbody tr td span.table-col {
+                display: block;
+                float: left;
+                width: calc(100% - 6em);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                控制台
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="ms-auto">
+                    <span class="text-warning h3" id="user_message"></span>
+                    <button class="btn btn-danger d-none" id="logout_btn">登出</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container pt-5">
+        <table class="table table-bordered table-hover table-sm border-secondary"
+            style="text-align: center; vertical-align: middle;">
+            <caption class="text-end">會員列表</caption>
+            <thead class="table-success">
+                <tr>
+                    <th width="5%">編號</th>
+                    <th width="20%">會員名稱</th>
+                    <th width="25%">Email</th>
+                    <th width="10%">會員權限</th>
+                    <th width="20%">建立時間</th>
+                    <th width="20%">資料修改</th>
+                </tr>
+            </thead>
+            <tbody id="mybody">
+                <tr>
+                    <td>xx</td>
+                    <td>xx</td>
+                    <td>xx</td>
+                    <td>xx</td>
+                    <td>xx</td>
+                    <td>
+                        <button class="btn btn-success">更新</button>
+                        <button class="btn btn-danger">刪除</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center" id="pageList">
+                <li class="page-item"><a class="page-link" href="#" onclick="drawTable(0)">1</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <!-- updateModal -->
+    <div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">會員資料更新</h1>
+                    <button type="button" id="exit_btn" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="member_name" class="form-label">帳號</label>
+                        <input type="text" class="form-control" name="member_name" id="member_name" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="member_email" class="form-label">Email</label>
+                        <input type="email" class="form-control" name="member_email" id="member_email">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="cancel_btn" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" id="cfm_update_btn" class="btn btn-primary">確認</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="js/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        var u_id; // for update
+        var u_name; // for delete
+        var newData = []; // for paginate
+        $(function () {
+            if (getCookie("UID01") != "") {
+                //UID01存在, 傳遞至後端api 判斷是否合法
+                var dataJSON = {};
+                dataJSON["UID01"] = getCookie("UID01");
+                console.log(JSON.stringify(dataJSON));
+                $.ajax({
+                    type: "POST",
+                    url: "api/member01-checkUID_api.php",
+                    data: JSON.stringify(dataJSON),
+                    dataType: "json",
+                    success: showdata_Check_UID,
+                    error: function () {
+                        alert("error-api/member01-checkUID_api.php");
+                    }
+                });
+            } else {
+                location.href = "cass01.html";
+            }
+
+            $.ajax({
+                type: "GET",
+                url: "api/member01-read_api.php",
+                async: false,
+                dataType: "json",
+                success: showdata,
+                error: function () {
+                    alert("error-api/member01-read_api.php");
+                }
+            });
+
+            // 監聽登出
+            $("#logout_btn").click(function () {
+                setCookie("UID01", "", 7);
+                location.href = "cass01.html";
+            });
+
+            // 監聽#update_btn
+            // $("#mybody #update_btn") : 獲取 '指定區域' 該 '項目' 所有資料避免只取到第一筆
+            $("body").on("click", "#mybody #update_btn", function () {
+                console.log($(this).data("id") + $(this).data("name") + $(this).data("email"));
+                u_id = $(this).data("id");
+                $("#member_name").val($(this).data("name"));
+                $("#member_email").val($(this).data("email"));
+            });
+
+            // 監聽#delete_btn
+            $("body").on("click", "#mybody #delete_btn", function () {
+                u_name = $(this).data("name");
+                Swal.fire({
+                    title: "確定刪除" + [u_name] + "?",
+                    showDenyButton: true,
+                    showCancelButton: false,
+                    confirmButtonText: "沒錯!",
+                    denyButtonText: "按錯了"
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        var dataJSON = {};
+                        dataJSON["ID"] = $(this).data("id");
+                        console.log(JSON.stringify(dataJSON));
+
+                        $.ajax({
+                            type: "POST",
+                            url: "api/member01-delete_api.php",
+                            data: JSON.stringify(dataJSON),
+                            dataType: "json",
+                            success: showDelete,
+                            error: function () {
+                                alert("error-api/member01-delete_api.php");
+                            }
+                        });
+                    } else if (result.isDenied) {
+
+                    }
+                });
+            });
+
+            // 監聽#cfm_update_btn
+            $("#cfm_update_btn").click(function () {
+                // 產生json格式參數
+                var dataJSON = {};
+                dataJSON["ID"] = u_id;
+                dataJSON["Email"] = $("#member_email").val();
+                console.log(JSON.stringify(dataJSON));
+
+                // 傳遞至後端api
+                $.ajax({
+                    type: "POST",
+                    url: "api/member01-update_api.php",
+                    data: JSON.stringify(dataJSON),
+                    dataType: "json",
+                    success: showUpdate,
+                    error: function () {
+                        alert("error-api/member01-update_api.php");
+                    }
+                });
+            });
+        });
+
+        function showdata(data) {
+            // 整理資料存為二維陣列
+            data.data.forEach(function (item, key) {
+                console.log(key);
+                if (key % 10 == 0) {
+                    newData.push([]);
+                }
+                var page = parseInt(key / 10);
+                newData[page].push(item);
+            });
+            drawTable(0);
+
+            // 產生頁碼
+            $("#pageList").empty();
+            newData.forEach(function (item, key) {
+                var thisPage = key + 1;
+                var strHTML = '<li class="page-item"><a class="page-link" href="#" onclick="drawTable(' + key + ')">' + thisPage + '</a></li>';
+                $("#pageList").append(strHTML);
+            });
+        }
+
+        function drawTable(page) {
+            $("#mybody").empty();
+            newData[page].forEach(function (club) {
+                var strHTML = '<tr><td>' + club.ID + '</td><td>' + club.Username + '</td><td>' + club.Email + '</td><td>' + club.Power + '</td><td>' + club.Created_at + '</td><td><button id="update_btn" class="btn btn-success me-1" data-bs-toggle="modal" data-bs-target="#updateModal" data-id="' + club.ID + '" data-name="' + club.Username + '" data-email="' + club.Email + '">更新</button><button id="delete_btn" data-id="' + club.ID + '" data-name="' + club.Username + '" class="btn btn-danger">刪除</button></td></tr>';
+                $("#mybody").append(strHTML);
+            });
+        }
+
+        function showUpdate(data) {
+            console.log(data);
+            if (data.state) {
+                // alert(data.message);
+                Swal.fire({
+                    title: "更新完成!",
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: "確認",
+                    denyButtonText: ``
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        Swal.fire("Saved!", "", "success");
+                        location.href = "member01-front.html";
+                    } else if (result.isDenied) {
+                        Swal.fire("Changes are not saved", "", "info");
+                    }
+                });
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showDelete(data) {
+            console.log(data);
+            if (data.state) {
+                // alert(data.message);
+                Swal.fire({
+                    title: "刪除完成!",
+                    showDenyButton: false,
+                    showCancelButton: false,
+                    confirmButtonText: "確認",
+                    denyButtonText: ``
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        Swal.fire("Saved!", "", "success");
+                        location.href = "member01-front.html";
+                    } else if (result.isDenied) {
+                        Swal.fire("Changes are not saved", "", "info");
+                    }
+                });
+            } else {
+                alert(data.message);
+            }
+        }
+
+        function showdata_Check_UID(data) {
+            console.log(data);
+            if (data.state) {
+                //驗證成功
+                $("#user_message").text(data.data[0].Username + "登入中!");
+
+                //顯示登出按鈕
+                $("#logout_btn").removeClass("d-none");
+            } else {
+                location.href = "Cass01.html";
+            }
+        }
+
+        //w3s
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        //w3s
+        function getCookie(cname) {
+            let name = cname + "=";
+            let decodedCookie = decodeURIComponent(document.cookie);
+            let ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+    </script>
+</body>
+
+</html>
